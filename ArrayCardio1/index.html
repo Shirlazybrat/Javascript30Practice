@@ -94,22 +94,42 @@
         //get two items and sort those two items, return 1 and -1
         // 3. Sort the inventors by birthdate, oldest to youngest
 
-        const ordered = inventors.sort(function(firstPerson, secondPerson) {
-            if (firstPerson.year > secondPerson.year) {
-                return 1;
-            } else {
-                return -1;
-            }
-        });
+        // const ordered = inventors.sort(function(firstPerson, secondPerson) {
+        //     if (firstPerson.year > secondPerson.year) {
+        //         return 1;
+        //     } else {
+        //         return -1;
+        //     }
+        // });
+
+        //or write as a terneray with arrow function
+        const ordered = inventors.sort((a, b) => a.year > b.year ? 1 : -1);
         console.table(ordered);
 
         // Array.prototype.reduce()
+        // allow you to biild something on every one item array... instead of using loop to += something, use reduce
         // 4. How many years did all the inventors live?
+        const totalYears = inventors.reduce((total, inventor) => {
+            return total + (inventor.passed - inventor.year);
+        }, 0);
+        console.log(totalYears);
 
         // 5. Sort the inventors by years lived
+        const oldest = inventors.sort(function(a, b) {
+            const lastGuy = a.passed - a.year;
+            const nextGuy = b.passed - b.year;
+            return lastGuy > nextGuy ? -1 : 1;
+        });
+        console.table(oldest);
 
         // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
         // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+        // go to the link and run the code
+        const category = document.querySelector('.mw-category');
+        const links = Array.from(category.querySelector('a'));
+        const de = links
+            .map(link => link.textContent)
+            .filter(streetName => streetName.includes('de'));
 
 
         // 7. sort Exercise
